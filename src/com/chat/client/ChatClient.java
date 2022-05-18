@@ -22,26 +22,20 @@ public class ChatClient {
     BasicConfigurator.configure();
     ChatClient c = new ChatClient();
     c.run();
-
   }
 
   public void establishConnection() {
     try (Socket socket = new Socket(ipAddress, PORT);
          Scanner scanner = new Scanner(System.in)) {
-
       System.out.println("connected \npress l for log in");
 
       PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
       Thread sendThread = new Thread(new MessageSender(scanner, writer));
       sendThread.start();
-
       receiveMessage(socket);
-
-
     } catch (IOException e) {
       LOGGER.error("Cant establish connection!!", e);
     }
-
   }
 
   private void receiveMessage(Socket socket) {
@@ -82,6 +76,4 @@ public class ChatClient {
     System.out.println("disconnect –> потребителят напуска чата");
     System.out.println("-------------------------------------------------------------");
   }
-
-
 }
